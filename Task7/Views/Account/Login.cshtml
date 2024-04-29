@@ -1,0 +1,21 @@
+﻿@model Task7.ViewModels.LoginViewModel
+
+<h2>Войти</h2>
+<form method="post" asp-controller="Account" asp-action="Login">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="input-group mb-3">
+        <input class="form-control" placeholder="Username" asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
+
+    <div class="input-group mb-3">
+        <input class="form-control" placeholder="Password" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary mb-2">Login</button>
+    </div>
+</form>
+
+<a class="link-opacity-75" asp-area="" asp-controller="Account" asp-action="Register">Or register</a>

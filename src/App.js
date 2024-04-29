@@ -1,23 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 
+import { ChatItem } from 'react-chat-elements'
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ChatItem
+        avatar={'https://facebook.github.io/react/img/logo.svg'}
+        alt={'Reactjs'}
+        title={'Facebook'}
+        subtitle={'What are you doing?'}
+        date={new Date()}
+        unread={0}
+      />
     </div>
   );
 }
