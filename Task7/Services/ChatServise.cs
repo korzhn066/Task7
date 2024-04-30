@@ -19,7 +19,7 @@ namespace Task7.Services
             _dbContext = dBContext;
         }
 
-        public async Task StartChatAsync(string username, string companionUsername)
+        public async Task<bool> StartChatAsync(string username, string companionUsername)
         {
             var user = await _dbContext.Users
                 .Include(u => u.ApplicationUserChats)
@@ -39,6 +39,12 @@ namespace Task7.Services
             if (companion is null)
             {
                 throw new ArgumentNullException(nameof(companion));
+            }
+
+            if (user.ApplicationUserChats.Select(au => au.ChatId)
+                .Intersect(companion.ApplicationUserChats.Select(au => au.ChatId)).ToList().Count != 0)
+            {
+                return false;
             }
 
             var chat = new Chat()
@@ -74,6 +80,8 @@ namespace Task7.Services
 
             await _dbContext.Chats.AddAsync(chat);
             await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<List<ChatDto>> GetUserChatsAsync(string username)

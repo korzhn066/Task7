@@ -62,9 +62,9 @@ namespace Task7.Controllers
 
         public async Task<IActionResult> StartChat(string companionUsername)
         {
-            await _chatService.StartChatAsync(HttpContext!.User!.Identity!.Name!, companionUsername);
+            var result = await _chatService.StartChatAsync(HttpContext!.User!.Identity!.Name!, companionUsername);
 
-            return NoContent();
+            return Ok(result);
         }
 
         public IActionResult Index()

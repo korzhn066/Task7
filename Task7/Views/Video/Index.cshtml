@@ -2,9 +2,11 @@
 <script src="~/microsoft/signalr/dist/browser/signalr.min.js"></script>
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 
-<h1>@ViewBag.RoomId</h1>
+<div id="startVideo" style="width:100%;display:flex;justify-content:center;">
 
-<div video-grid>
+</div>
+
+<div video-grid style="width:100%;display:flex;justify-content:center;">
 
 </div>
 
@@ -17,47 +19,12 @@
     const ROOM_ID = '@ViewBag.RoomId'
     const Peers = {}
 
+    const startVideo = document.getElementById("startVideo")
+
     let userId = null
     let localStream = null
 
-    const peer = new Peer()
-
-    peer.on('open', id => {
-        userId = id       
-        
-        const startConnection = async () => {
-            await videoHubConnection.start();
-            await videoHubConnection.invoke("JoinRoom", ROOM_ID, userId)
-        }
-
-        startConnection()
-    })
-
-    peer.on("call", call => {
-        call.answer(localStream)
-
-        const userVideo = document.createElement("video")
-
-        call.on("stream", userVideoStream => {
-            addVideoStream(userVideo, userVideoStream)
-        })
-    })
-
-    videoHubConnection.on("JoinRoom", data => {
-        if (data == userId) return
-
-        console.log(data)
-
-        connectNewUser(data, localStream)
-    })
-
-    videoHubConnection.on("LeaveRoom", data => {
-        console.log(data)
-
-        if (Peers[data]){
-            Peers[data].close()
-        }
-    })
+    
     
     const videogrid = document.querySelector('[video-grid]')
     const gVideo = document.createElement('video')
@@ -70,30 +37,80 @@
         addVideoStream(gVideo, stream)
 
         localStream = stream
+
+        const peer = new Peer()
+
+        peer.on('open', id => {
+            userId = id
+
+            const startConnection = async () => {
+                await videoHubConnection.start();
+                await videoHubConnection.invoke("JoinRoom", ROOM_ID, userId)
+            }
+
+            startConnection()
+        })
+
+        peer.on("call", call => {
+            call.answer(localStream)
+
+            const userVideo = document.createElement("video")
+
+            call.on("stream", userVideoStream => {
+                addVideoStream(userVideo, userVideoStream)
+            })
+        })
+
+        videoHubConnection.on("JoinRoom", data => {
+            if (data == userId) return
+
+            connectNewUser(data, localStream)
+        })
+
+        videoHubConnection.on("LeaveRoom", data => {
+            if (Peers[data]) {
+                Peers[data].close()
+            }
+        })
+
+        const connectNewUser = (userId, localStream) => {
+            const userVideo = document.createElement("video")
+            const call = peer.call(userId, localStream)
+
+            call.on("stream", userVideoStream => {
+                addVideoStream(userVideo, userVideoStream)
+            })
+
+            call.on("close", () => {
+                userVideo.remove()
+            })
+
+            Peers[userId] = call
+        }
     })
 
-    const connectNewUser = (userId, localStream) => {
-        const userVideo = document.createElement("video")
-        const call = peer.call(userId, localStream)
+   
 
-        call.on("stream", userVideoStream => {
-            addVideoStream(userVideo, userVideoStream)
-        })
+    let isViedoCanBeStarted = false
 
-        call.on("close", () => {
-            userVideo.remove()
-        })
+    const startVideoBtn = document.createElement("button")
+    startVideoBtn.innerHTML = "Click to start video"
 
-        Peers[userId] = call
-    }
+    startVideo.appendChild(startVideoBtn)
 
     const addVideoStream = (video, stream) => {
         video.srcObject = stream
         video.addEventListener('loadedmetadata', () => {
-            video.play()
+            if (isViedoCanBeStarted){
+                video.play()
+            }else{
+                startVideoBtn.addEventListener("click", () => {
+                    isViedoCanBeStarted = true
+                    video.play()
+                })
+            }
         })
 
-        console.log("add")
         videogrid.appendChild(video)
     }
 

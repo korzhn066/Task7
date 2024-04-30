@@ -36,7 +36,9 @@ namespace Task7.Data
         {
 
             builder.Entity<ApplicationUserChat>()
-                .HasKey(ac => new { ac.ChatId, ac.ApplicationUserId });
+
+                .HasKey(ac => new { ac.ChatId, ac.ApplicationUserId })
+                ;
 
             builder.Entity<ApplicationUserChat>()
                 .HasOne(ac => ac.ApplicationUser)

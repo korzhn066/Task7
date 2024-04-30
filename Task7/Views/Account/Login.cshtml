@@ -1,21 +1,31 @@
 ﻿@model Task7.ViewModels.LoginViewModel
 
-<h2>Войти</h2>
-<form method="post" asp-controller="Account" asp-action="Login">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div class="input-group mb-3">
-        <input class="form-control" placeholder="Username" asp-for="UserName" />
-        <span asp-validation-for="UserName"></span>
-    </div>
+<div class="formdiv">
+    <div class="form-signin w-50 m-auto ">
+        <form method="post" asp-controller="Account" asp-action="Login">
+            <div asp-validation-summary="ModelOnly"></div>
+            <h1 class="h3 mb-3 fw-normal">Login</h1>
 
-    <div class="input-group mb-3">
-        <input class="form-control" placeholder="Password" asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
+            <div class="form-floating">
+                <input type="text" asp-for="UserName" class="form-control rinout" id="floatingInput" placeholder="Username">
+              <label for="floatingInput">Username</label>
+              <span asp-validation-for="UserName"></span>
+            </div>
 
-    <div>
-        <button type="submit" class="btn btn-primary mb-2">Login</button>
-    </div>
-</form>
+            <div class="form-floating">
+                <input type="password" asp-for="Password" class="form-control rinout" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password</label>
+              <span asp-validation-for="Password"></span>
+            </div>
 
-<a class="link-opacity-75" asp-area="" asp-controller="Account" asp-action="Register">Or register</a>
+            <button class="btn btn-primary w-100 py-2" type="submit">Log in</button>
+          </form>
+
+        <a class="link-opacity-75" asp-area="" asp-controller="Account" asp-action="Register">Or register</a>
+  </div>
+</div>
+
+
+
+
+

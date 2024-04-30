@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aqacFU+r68jvYbtUJ3AaiFUNZ29BGjVGZk58lf5Nz5Q=",
+  "Hash": "KpouQA6bEf2Vh595f/77sClubIyXMTw+LlnwajYjeCs=",
   "Source": "Task7",
   "BasePath": "_content/Task7",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Files\\8026b0d7-1d0d-41ae-a19f-ec23759b256d.txt"
+    },
+    {
+      "Identity": "E:\\Task7\\Task7\\wwwroot\\Files\\85b9623e-4dcf-4165-aa76-e3885a6cc22c.doc",
+      "SourceId": "Task7",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Task7\\Task7\\wwwroot\\",
+      "BasePath": "_content/Task7",
+      "RelativePath": "Files/85b9623e-4dcf-4165-aa76-e3885a6cc22c.doc",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Files\\85b9623e-4dcf-4165-aa76-e3885a6cc22c.doc"
     },
     {
       "Identity": "E:\\Task7\\Task7\\wwwroot\\Files\\a2f84e08-a805-4b5f-8396-d5ec278a9f21.txt",
